@@ -1,2 +1,3 @@
 # Machine-Learning
-Application of Machine Learning to Electron Microscopy
+
+Code written while going throught Mathematica's machine learning [documentation](http://reference.wolfram.com/language/guide/MachineLearning.html).
