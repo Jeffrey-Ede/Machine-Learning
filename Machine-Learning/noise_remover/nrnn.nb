@@ -1,0 +1,1020 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     44772,       1012]
+NotebookOptionsPosition[     42013,        960]
+NotebookOutlinePosition[     42359,        975]
+CellTagsIndexPosition[     42316,        972]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Design", " ", "neural", " ", "network"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"filtSize", " ", "=", " ", "9"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"noiseRemover", " ", "=", " ", 
+    RowBox[{"NetGraph", "[", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+       "Tanh", ",", "\[IndentingNewLine]", "128", ",", "\[IndentingNewLine]", 
+        "Tanh", ",", "\[IndentingNewLine]", "256", ",", "\[IndentingNewLine]",
+         "Ramp", ",", "\[IndentingNewLine]", "512", ",", 
+        "\[IndentingNewLine]", "Ramp", ",", "\[IndentingNewLine]", "256", ",",
+         "\[IndentingNewLine]", "Ramp", ",", "\[IndentingNewLine]", "512", 
+        ",", "\[IndentingNewLine]", "Ramp", ",", "\[IndentingNewLine]", "256",
+         ",", "\[IndentingNewLine]", "Tanh", ",", "\[IndentingNewLine]", 
+        "128", ",", "\[IndentingNewLine]", "Tanh", ",", "\[IndentingNewLine]",
+         "256", ",", "\[IndentingNewLine]", "LogisticSigmoid", ",", 
+        "\[IndentingNewLine]", "128", ",", "\[IndentingNewLine]", 
+        "LogisticSigmoid", ",", "\[IndentingNewLine]", "1"}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"1", "\[Rule]", "2"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"2", "\[Rule]", "3"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"3", "\[Rule]", "4"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"4", "\[Rule]", "5"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"5", "\[Rule]", "6"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"6", "\[Rule]", "7"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"7", "\[Rule]", "8"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"8", "\[Rule]", "9"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"9", "\[Rule]", "10"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"10", "\[Rule]", "11"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"11", "\[Rule]", "12"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"12", "\[Rule]", "13"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"13", "\[Rule]", "14"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"14", "\[Rule]", "15"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"15", "\[Rule]", "16"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"16", "\[Rule]", "17"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"17", "\[Rule]", "18"}]}], "\[IndentingNewLine]", "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"\"\<Input\>\"", "\[Rule]", 
+       RowBox[{"NetEncoder", "[", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Image\>\"", ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"9", ",", "9"}], "}"}]}], "}"}], "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"\"\<Output\>\"", "\[Rule]", 
+       RowBox[{"NetDecoder", "[", "\"\<Scalar\>\"", "]"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.726819193341879*^9, 3.7268192016619434`*^9}, {
+  3.7268367477592363`*^9, 3.726837034353079*^9}, {3.726837246504201*^9, 
+  3.726837247422763*^9}, {3.726837494190831*^9, 3.7268374946977434`*^9}, {
+  3.7268376583415575`*^9, 3.7268377268163633`*^9}, {3.726843617921216*^9, 
+  3.7268436313232584`*^9}},ExpressionUUID->"71b10b7d-c5bb-4f13-834a-\
+06a264d8f075"],
+
+Cell[BoxData[
+ RowBox[{"NetGraph", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "Tanh", ",", "128", ",", "Tanh", ",", "256", ",", "Ramp", ",", "512", ",",
+      "Ramp", ",", "256", ",", "Ramp", ",", "512", ",", "Ramp", ",", "256", 
+     ",", "Tanh", ",", "128", ",", "Tanh", ",", "256", ",", "LogisticSigmoid",
+      ",", "128", ",", "LogisticSigmoid", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"1", "\[Rule]", "2"}], ",", 
+     RowBox[{"2", "\[Rule]", "3"}], ",", 
+     RowBox[{"3", "\[Rule]", "4"}], ",", 
+     RowBox[{"4", "\[Rule]", "5"}], ",", 
+     RowBox[{"5", "\[Rule]", "6"}], ",", 
+     RowBox[{"6", "\[Rule]", "7"}], ",", 
+     RowBox[{"7", "\[Rule]", "8"}], ",", 
+     RowBox[{"8", "\[Rule]", "9"}], ",", 
+     RowBox[{"9", "\[Rule]", "10"}], ",", 
+     RowBox[{"10", "\[Rule]", "11"}], ",", 
+     RowBox[{"11", "\[Rule]", "12"}], ",", 
+     RowBox[{"12", "\[Rule]", "13"}], ",", 
+     RowBox[{"13", "\[Rule]", "14"}], ",", 
+     RowBox[{"14", "\[Rule]", "15"}], ",", 
+     RowBox[{"15", "\[Rule]", "16"}], ",", 
+     RowBox[{"16", "\[Rule]", "17"}], ",", 
+     RowBox[{"17", "\[Rule]", "18"}]}], "}"}], ",", 
+   RowBox[{"\<\"Input\"\>", "\[Rule]", 
+    RowBox[{"NetEncoder", "[", 
+     RowBox[{"{", 
+      RowBox[{"\<\"Image\"\>", ",", 
+       RowBox[{"{", 
+        RowBox[{"9", ",", "9"}], "}"}]}], "}"}], "]"}]}], ",", 
+   RowBox[{"\<\"Output\"\>", "\[Rule]", 
+    RowBox[{"NetDecoder", "[", "\<\"Scalar\"\>", "]"}]}]}], "]"}]], "Output",
+ CellChangeTimes->{
+  3.7268192026857476`*^9, 3.7268257894428005`*^9, {3.7268436112912145`*^9, 
+   3.726843632539523*^9}, 
+   3.726843668364296*^9},ExpressionUUID->"72be1e40-3122-411b-8b71-\
+99a178cf65ce"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Import", " ", "the", " ", "image", " ", "stack", " ", "to", " ", "train", 
+    " ", "the", " ", "neural", " ", "network"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"dir", " ", "=", " ", "\"\<D:/data/nnStack\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"files", "=", 
+     RowBox[{"FileNames", "[", 
+      RowBox[{"\"\<*.png\>\"", ",", "dir"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"imgs", " ", "=", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Import", "[", "#", "]"}], "&"}], "/@", "files"}]}], ";"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7268194604065895`*^9, 3.726819485454915*^9}, {
+   3.7268195514593573`*^9, 3.726819609130973*^9}, 3.7268197168122873`*^9, {
+   3.726819829062688*^9, 3.7268198739361963`*^9}, {3.726824353696313*^9, 
+   3.726824379851654*^9}, {3.7268249500637207`*^9, 
+   3.72682496858681*^9}},ExpressionUUID->"583687cc-0a7a-4fdc-83be-\
+0a1de230f613"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"names", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FileBaseName", "[", "#", "]"}], " ", "&"}], " ", "/@", " ", 
+    "files"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vals", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Read", "[", 
+      RowBox[{
+       RowBox[{"StringToStream", "[", "#", "]"}], ",", "Number"}], "]"}], 
+     "&"}], "/@", " ", "names"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7268196291176243`*^9, 3.7268196342106667`*^9}, 
+   3.7268244561257524`*^9, {3.726824894217511*^9, 3.726824901706382*^9}, {
+   3.7268250263433676`*^9, 3.726825053909237*^9}, {3.7268251968698797`*^9, 
+   3.7268252922272143`*^9}, {3.7268253362866364`*^9, 
+   3.7268253714092617`*^9}, {3.7268254760413904`*^9, 3.726825512874318*^9}, {
+   3.726825649248996*^9, 3.726825725085125*^9}, {3.726837177821613*^9, 
+   3.7268371891024275`*^9}},ExpressionUUID->"e6fe25ae-e04f-4ba4-ac00-\
+be43387f10df"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", " ", "=", " ", 
+   RowBox[{"Flatten", " ", "@", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"x", "\[Rule]", "y"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", " ", "imgs"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", "vals"}], "}"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"trained", " ", "=", " ", 
+   RowBox[{"NetTrain", "[", 
+    RowBox[{"NRNet", ",", " ", "data", ",", " ", 
+     RowBox[{"Method", "\[Rule]", 
+      RowBox[{"{", "\"\<ADAM\>\"", "}"}]}], ",", " ", 
+     RowBox[{"TrainingProgressReporting", "\[Rule]", "\"\<Panel\>\""}], ",", 
+     " ", 
+     RowBox[{"BatchSize", "\[Rule]", "32"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7268262204717426`*^9, 3.726826255351272*^9}, {
+  3.726826293066512*^9, 3.7268263430826373`*^9}, {3.7268263746894407`*^9, 
+  3.72682641436996*^9}, {3.72682647211557*^9, 3.72682650676678*^9}, {
+  3.726826559301792*^9, 3.726826572855488*^9}, {3.7268276853481503`*^9, 
+  3.7268276856869526`*^9}},ExpressionUUID->"e4d74ec5-bbed-4131-9309-\
+b1b09a9e7667"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "NetTrain","interr",
+   "\"An internal error occurred. Please contact Wolfram Research.\"",2,154,
+   24,24713590348049757132,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.7268277326458483`*^9},ExpressionUUID->"73c08e9f-8c98-4718-a4c0-\
+a5eda3b7e15c"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7268265950500083`*^9, 3.726826635070654*^9}, {
+  3.7268275610669947`*^9, 
+  3.7268276097025456`*^9}},ExpressionUUID->"34439617-c278-4abf-a8dd-\
+aeb01e0d7dda"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"data", "[", 
+  RowBox[{"[", "1600", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.726827620726865*^9, 3.726827623425295*^9}, {
+  3.7268276705390997`*^9, 
+  3.7268276764255166`*^9}},ExpressionUUID->"9beb558f-5f78-4e30-888b-\
+377fa7c26c65"],
+
+Cell[BoxData[
+ RowBox[{
+  GraphicsBox[
+   TagBox[
+    RasterBox[
+     RawArray["UnsignedInteger16",{{4744, 21710, 21872, 19810, 19285, 8180, 
+      10485, 23786, 20241, 19810, 23031, 25807}, {12331, 10471, 2978, 445, 
+      6482, 15107, 19042, 10175, 1213, 16293, 65535, 44000}, {3571, 10309, 
+      24554, 31494, 43919, 7102, 11697, 27424, 35510, 20511, 11846, 4056}, {
+      24459, 17061, 1968, 25955, 20066, 29729, 19877, 27, 13436, 24567, 33084,
+       28206}, {4865, 27209, 16441, 2722, 17964, 28246, 35523, 13274, 2183, 
+      2507, 687, 6792}, {8962, 15727, 12263, 3490, 7479, 2304, 9043, 13975, 
+      5215, 10188, 18853, 31993}, {5364, 6994, 9514, 15322, 256, 23449, 22802,
+       3248, 5458, 6859, 3975, 984}, {2803, 26400, 23597, 5957, 11522, 4595, 
+      17883, 12762, 3275, 12722, 11158, 2062}, {37585, 26211, 6240, 7089, 
+      25470, 35982, 660, 256, 34715, 21845, 20686, 33192}, {37814, 1402, 
+      32235, 21468, 12816, 10161, 30591, 24459, 17533, 2224, 2924, 1617}, {
+      2682, 32963, 38016, 202, 41830, 24176, 12277, 606, 24311, 23583, 10067, 
+      4905}, {22977, 17317, 7749, 22330, 44269, 40, 38016, 27289, 1132, 17937,
+       11199, 687}}], {{0, 12}, {12, 0}}, {0, 65535},
+     ColorFunction->GrayLevel],
+    BoxForm`ImageTag[
+    "Bit16", ColorSpace -> "Grayscale", Interleaving -> None, MetaInformation -> 
+     Association[
+      "Exif" -> Association[
+        "Software" -> 
+         "Created with the Wolfram Language for Students - Personal Use Only \
+: www.wolfram.com"], "Comments" -> 
+       Association[
+        "Software" -> 
+         "Created with the Wolfram Language for Students - Personal Use Only \
+: www.wolfram.com", "Creation Time" -> 
+         DateObject[{2018, 2, 5, 12, 52, 57.}, "Instant", "Gregorian", 0.]]]],
+    Selectable->False],
+   DefaultBaseStyle->"ImageGraphics",
+   ImageSizeRaw->{12, 12},
+   PlotRange->{{0, 12}, {0, 12}}], "\[Rule]", "\<\"0.939481\"\>"}]], "Output",
+ CellChangeTimes->{{3.726827780913989*^9, 
+  3.7268277945768795`*^9}},ExpressionUUID->"ff47d7c2-4026-4b1c-9fb0-\
+3cc121593fb9"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7268277615758934`*^9, 3.726827761867216*^9}, {
+  3.726827792029704*^9, 
+  3.726827793131178*^9}},ExpressionUUID->"731a6795-2452-4666-9311-\
+bace2a13a0c8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.726825796539997*^9, 3.7268258892484875`*^9}, 
+   3.726825921254233*^9, 3.726826591265597*^9, {3.726826642083232*^9, 
+   3.726826644629861*^9}, {3.7268270680834064`*^9, 3.7268270904323325`*^9}, 
+   3.726827272843874*^9, {3.7268273510443892`*^9, 3.7268273687274*^9}, 
+   3.726827439079977*^9, {3.726827498189406*^9, 3.726827503676263*^9}, 
+   3.7268276839615746`*^9},ExpressionUUID->"1e06ee81-726f-4ad4-94e4-\
+678ccf96992c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "NetTrain","interr",
+   "\"An internal error occurred. Please contact Wolfram Research.\"",2,149,
+   23,24713590348049757132,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{{3.726827390500392*^9, 3.726827417053445*^9}, 
+   3.726827457728192*^9, 3.726827522594847*^9, 
+   3.726827654048024*^9},ExpressionUUID->"4ec37558-098a-452e-81ca-\
+3def5795aa45"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Flatten", "@", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y"}], "}"}], "\[Rule]", 
+       RowBox[{"x", "*", "y"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "1"}], ",", "1", ",", ".005"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "1"}], ",", "1", ",", ".005"}], "}"}]}], "]"}]}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"net", "=", 
+   RowBox[{"NetChain", "[", 
+    RowBox[{"{", 
+     RowBox[{"32", ",", "Tanh", ",", "1"}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"trained", "=", 
+  RowBox[{"NetTrain", "[", 
+   RowBox[{"net", ",", "data", ",", 
+    RowBox[{"BatchSize", "\[Rule]", "1024"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.726827535697961*^9, 
+  3.726827535741535*^9}},ExpressionUUID->"0d3c4f38-ec5b-4fe9-937f-\
+1cae4051d386"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7268275547688427`*^9, 
+  3.726827554795915*^9}},ExpressionUUID->"cfa0df4c-b5cd-44c0-a439-\
+1f14ebbd8b94"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"dir", " ", "=", " ", "\"\<D:/data/NNStack/\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"files", "=", 
+   RowBox[{"RandomSample", "[", 
+    RowBox[{"FileNames", "[", 
+     RowBox[{"\"\<*.png\>\"", ",", "dir"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"names", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FileBaseName", "[", "#", "]"}], " ", "&"}], " ", "/@", " ", 
+    "files"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vals", " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Read", "[", 
+       RowBox[{
+        RowBox[{"StringToStream", "[", "#", "]"}], ",", "Number"}], "]"}], 
+      "&"}], "/@", " ", "names"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"imagefiles", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"File", "[", 
+       RowBox[{"dir", "<>", 
+        RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.png\>\""}], "]"}], 
+      ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "names"}], "}"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"<|", 
+      RowBox[{
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "#1"}], ",", 
+       RowBox[{"\"\<Output\>\"", "\[Rule]", " ", "#2"}]}], "|>"}], " ", "&"}],
+     " ", "@@@", " ", "\[IndentingNewLine]", 
+    RowBox[{"Transpose", "[", 
+     RowBox[{"{", 
+      RowBox[{"imagefiles", ",", " ", "vals"}], "}"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"trainingData", "=", 
+     RowBox[{"data", "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ";;", 
+        RowBox[{"Round", "[", 
+         RowBox[{"0.9", "*", 
+          RowBox[{"Length", "[", "data", "]"}]}], "]"}]}], "]"}], "]"}]}], 
+    ";", "\n", 
+    RowBox[{"testData", "=", 
+     RowBox[{"Complement", "[", 
+      RowBox[{"data", ",", "trainingData"}], "]"}]}], ";"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.7268370460390935`*^9, 3.726837046155418*^9}, {
+   3.7268370999717307`*^9, 3.726837165207949*^9}, {3.726837263208169*^9, 
+   3.726837263891577*^9}, {3.726837296740527*^9, 3.7268374548584166`*^9}, {
+   3.726837598774128*^9, 3.7268376298351226`*^9}, {3.7268377680592394`*^9, 
+   3.7268377720623293`*^9}, {3.7268379607080116`*^9, 
+   3.7268379615681343`*^9}, {3.7268384723497677`*^9, 
+   3.7268385047811103`*^9}, {3.7268386299328756`*^9, 3.72683866240773*^9}, {
+   3.726839031196581*^9, 3.7268391355473337`*^9}, {3.7268398529836283`*^9, 
+   3.7268398708968663`*^9}, {3.7268402210487366`*^9, 3.72684023339764*^9}, {
+   3.726840263952182*^9, 3.726840299207683*^9}, 3.726840400747013*^9, {
+   3.726840484332884*^9, 3.7268404845559793`*^9}, {3.7268413199182606`*^9, 
+   3.726841321117197*^9}, {3.726842700193923*^9, 3.726842725534012*^9}, {
+   3.7268429000485096`*^9, 3.726842910568367*^9}, {3.726842966105395*^9, 
+   3.726842969083209*^9}, {3.726843003960295*^9, 3.7268430050722494`*^9}, {
+   3.726843170062767*^9, 3.7268431713086963`*^9}, 3.726847075953967*^9, 
+   3.7268976447544527`*^9},ExpressionUUID->"4af6fe4e-a3f0-4492-bc1d-\
+446b32dcf938"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"data", "[", 
+  RowBox[{"[", "6", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.726840359324111*^9, 3.7268403654795103`*^9}, {
+  3.72684119814938*^9, 3.7268411993868504`*^9}, {3.7268414376348667`*^9, 
+  3.7268414448466415`*^9}, {3.7268430144365244`*^9, 
+  3.7268430168641*^9}},ExpressionUUID->"8e25385a-4260-40ff-a4b0-edcaf3caa0e4"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"\<\"Input\"\>", "\[Rule]", 
+    RowBox[{"File", "[", 
+     TemplateBox[{"\"D:/data/NNStack/0.228341.png\""},
+      "FileArgument"], "]"}]}], ",", 
+   RowBox[{"\<\"Output\"\>", "\[Rule]", "0.228341`"}]}], 
+  "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{
+  3.7268403664135528`*^9, 3.726840543073339*^9, {3.7268411917937183`*^9, 
+   3.7268411996904345`*^9}, 3.7268414455771093`*^9, 3.7268431069266057`*^9, 
+   3.726843198517433*^9, 3.726847241249561*^9, 3.726899268545966*^9, 
+   3.726899828303837*^9},ExpressionUUID->"b36934a5-9967-4293-9717-\
+94a4d3e41e3e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"k", "=", "9"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NRNet", "=", 
+  RowBox[{"NetGraph", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+     "LogisticSigmoid", ",", "\[IndentingNewLine]", "256", ",", 
+      "\[IndentingNewLine]", "LogisticSigmoid", ",", "\[IndentingNewLine]", 
+      "128", ",", "\[IndentingNewLine]", "LogisticSigmoid", ",", 
+      "\[IndentingNewLine]", "1"}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"1", "\[Rule]", "2"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"2", "\[Rule]", "3"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"3", "\[Rule]", "4"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"4", "\[Rule]", "5"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"5", "\[Rule]", "6"}]}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<Input\>\"", "\[Rule]", 
+     RowBox[{"NetEncoder", "[", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Image\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"9", ",", "9"}], "}"}], ",", " ", "\"\<Grayscale\>\""}], 
+       "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<Output\>\"", "\[Rule]", 
+     RowBox[{"NetDecoder", "[", "\"\<Scalar\>\"", "]"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"nrnn", " ", "=", " ", 
+  RowBox[{"NetTrain", "[", 
+   RowBox[{"NRNet", ",", " ", "data", ",", " ", 
+    RowBox[{"Method", "\[Rule]", "\"\<ADAM\>\""}], ",", 
+    RowBox[{"MaxTrainingRounds", "\[Rule]", "1"}], ",", " ", 
+    RowBox[{"TrainingProgressReporting", "\[Rule]", "\"\<Print\>\""}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<noise_remover.json\>\"", ",", " ", "nrnn", ",", " ", 
+    "\"\<MXNet\>\""}], "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.726837756977375*^9, 3.7268378138797684`*^9}, {
+   3.7268379220802717`*^9, 3.7268379311808863`*^9}, {3.7268381564296026`*^9, 
+   3.726838209107052*^9}, {3.7268386096238065`*^9, 3.726838611427796*^9}, {
+   3.726839856934368*^9, 3.726839858064665*^9}, {3.726840137574774*^9, 
+   3.7268401499042363`*^9}, {3.7268403052382345`*^9, 
+   3.7268403080840783`*^9}, {3.7268403460462637`*^9, 
+   3.7268403488319287`*^9}, {3.7268411555401807`*^9, 3.726841167906648*^9}, {
+   3.726841259269233*^9, 3.7268412640366583`*^9}, 3.7268413003529863`*^9, {
+   3.726841336596274*^9, 3.7268414243131495`*^9}, {3.7268421565268717`*^9, 
+   3.7268421584531837`*^9}, 3.7268427955632067`*^9, {3.726844021757451*^9, 
+   3.7268440451865263`*^9}, {3.726846265316185*^9, 3.726846265810524*^9}, {
+   3.7268463742304974`*^9, 3.7268464066806035`*^9}, {3.7268469506415567`*^9, 
+   3.726846991768157*^9}, {3.726897660723555*^9, 3.7268976863537884`*^9}, {
+   3.726897724230957*^9, 3.7268977624075737`*^9}, {3.72689787092213*^9, 
+   3.726897883116561*^9}, {3.7268979727037334`*^9, 3.7268980056899323`*^9}, {
+   3.726898796397872*^9, 3.72689882842303*^9}, {3.7268988588741064`*^9, 
+   3.7268988692450123`*^9}, {3.726898972726332*^9, 3.7268989811995363`*^9}, {
+   3.7268993004713545`*^9, 3.726899347878795*^9}, {3.7268994718244643`*^9, 
+   3.726899519189049*^9}, {3.726899574134861*^9, 3.726899631162533*^9}, {
+   3.7268996979034615`*^9, 3.7268997331115427`*^9}, {3.72689977393303*^9, 
+   3.7268997787069693`*^9}},ExpressionUUID->"65b55aba-0a98-463d-86bd-\
+84b730dadbde"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[
+   TagBox[
+    RowBox[{"NetGraph", 
+     RowBox[{"[", 
+      PanelBox[
+       DynamicModuleBox[{NeuralNetworks`Private`NetGraph`selection = None}, 
+        DynamicBox[GridBox[
+          Map[List, {
+            ToBoxes[
+             
+             NeuralNetworks`Private`NetGraph`netLayerPlot[{{1, 2}, {2, 3}, {3,
+               4}, {4, 5}, {5, 6}, {7, 1}, {6, 8}}, 
+              Dynamic[NeuralNetworks`Private`NetGraph`selection], False, {
+              "1", "2", "3", "4", "5", "6", "Input", "Output"}, {
+               RGBColor[0.29, 0.29, 0.83], 
+               GrayLevel[0.4], Null}, {1, 2, 1, 2, 1, 2, 3, 3}, {
+              LogisticSigmoid, LinearLayer, Null}, {
+               NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]}, None]], 
+            If[
+             IntegerQ[NeuralNetworks`Private`NetGraph`selection], 
+             ItemBox[
+              NeuralNetworks`Private`NetGraph`vpathInfo[
+               Part[{
+                 NeuralNetworks`NetPath["Nodes", "1"], 
+                 NeuralNetworks`NetPath["Nodes", "2"], 
+                 NeuralNetworks`NetPath["Nodes", "3"], 
+                 NeuralNetworks`NetPath["Nodes", "4"], 
+                 NeuralNetworks`NetPath["Nodes", "5"], 
+                 NeuralNetworks`NetPath["Nodes", "6"], 
+                 NeuralNetworks`NetPath["Inputs", "Input"], 
+                 NeuralNetworks`NetPath["Outputs", "Output"]}, 
+                NeuralNetworks`Private`NetGraph`selection], 
+               Association["Input" -> NetEncoder["Image", 
+                  Association[
+                  "ImageSize" -> {9, 9}, "ColorSpace" -> "Grayscale", 
+                   "ColorChannels" -> 1, "MeanImage" -> None, "VarianceImage" -> 
+                   None], 
+                  NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]]], 
+               Association["Output" -> NetDecoder["Scalar", 
+                  Association[], 
+                  NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]], 
+               Association[
+               "1" -> Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> 
+                    NeuralNetworks`ValidatedParameter[LogisticSigmoid], 
+                    "$Dimensions" -> {1, 9, 9}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]]],
+                 "2" -> Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{256, 81}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {256}, "$OutputSize" -> 256, 
+                    "$InputSize" -> 81, "$InputDimensions" -> {1, 9, 9}], 
+                  "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT]]], 
+                "3" -> Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> 
+                    NeuralNetworks`ValidatedParameter[LogisticSigmoid], 
+                    "$Dimensions" -> {256}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT]]], 
+                "4" -> Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{128, 256}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {128}, "$OutputSize" -> 128, 
+                    "$InputSize" -> 256, "$InputDimensions" -> {256}], 
+                  "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{256}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT]]], 
+                "5" -> Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> 
+                    NeuralNetworks`ValidatedParameter[LogisticSigmoid], 
+                    "$Dimensions" -> {128}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT]]], 
+                "6" -> Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{1, 128}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {1}, "$OutputSize" -> 1, 
+                    "$InputSize" -> 128, "$InputDimensions" -> {128}], 
+                  "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{128}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]]]], 
+              Alignment -> Center], Nothing]}], 
+          GridBoxAlignment -> {"Columns" -> {{Left}}}],
+         ImageSizeCache->{490., {34.5, 40.5}},
+         TrackedSymbols:>{NeuralNetworks`Private`NetGraph`selection}],
+        Initialization:>{NetGraph}],
+       BaselinePosition->(Top -> Scaled[3])], "]"}]}],
+    False],
+   Deploy],
+  LineBreakWithin->False]], "Output",
+ CellChangeTimes->{
+  3.7268411319362144`*^9, 3.726841204077843*^9, 3.726841274073301*^9, 
+   3.7268413675188465`*^9, 3.726842160454812*^9, 3.7268432063315344`*^9, {
+   3.726846255556793*^9, 3.726846268471357*^9}, {3.7268469626034684`*^9, 
+   3.7268469927652636`*^9}, 3.726847245124566*^9, 3.7268976939181747`*^9, 
+   3.726897732648935*^9, 3.726898798624911*^9, {3.726899303325924*^9, 
+   3.726899316080272*^9}, 3.7268993502059655`*^9, {3.7268994782609634`*^9, 
+   3.7268995214682837`*^9}},ExpressionUUID->"f0133baa-a7c5-40c7-ae73-\
+4f6c25caa511"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nrnn", "[", 
+  GraphicsBox[
+   TagBox[RasterBox[CompressedData["
+1:eJw1j8lqAlEQRR8uQvyM/EKEbC+CBEQlsZVoJrU100IQVJDs8lXJD8SIiSbO
+Q6vd7UR0r3u9hb2o9+pV3Xfq1kk6pz25lFKF4/2h6SVvPq+/Ro74eNSzntMs
+m+5DKPWGj/czVL7O0WxcotuJovF3gdpPAK1mGObkHttNEb/1EIzhNSwzgcn4
+TjT1WlDyqZ3CevUietbGo1u0WxpGxo38521bScymumjImc/ScnPOcvEgOvbJ
+Yj7oxyQvf/rEkzObLPKpWcwz6PeuhE0f1Kz+n+VNJj2w9l31yxzWGayR4bCp
+67QjwiSHf+nF2ZO7Dwdx0ToM9jifHndzfr+1
+     "], {{0, 9}, {9, 0}}, {0., 1.},
+     ColorFunction->GrayLevel],
+    BoxForm`ImageTag[
+    "Real32", ColorSpace -> "Grayscale", Interleaving -> None],
+    Selectable->False],
+   DefaultBaseStyle->"ImageGraphics",
+   ImageSize->{164., Automatic},
+   ImageSizeRaw->{9, 9},
+   PlotRange->{{0, 9}, {0, 9}}], "]"}]], "Input",
+ CellChangeTimes->{{3.7268476169734783`*^9, 3.726847620661659*^9}, {
+  3.7268480456512427`*^9, 3.726848090889517*^9}, {3.726848193708045*^9, 
+  3.7268482050993333`*^9}, {3.7268483219360733`*^9, 3.72684837616212*^9}, {
+  3.7268484397551727`*^9, 
+  3.7268485537192264`*^9}},ExpressionUUID->"d12aa450-e4bf-461d-8047-\
+dab3659fd600"],
+
+Cell[BoxData["0.6705712080001831`"], "Output",
+ CellChangeTimes->{3.7268482202608604`*^9, 3.726848291561286*^9, 
+  3.7268483379672675`*^9, 3.7268484581385174`*^9, 
+  3.726848541071804*^9},ExpressionUUID->"c8695d8b-7fe6-4d3d-9d90-\
+e311aa452e4a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"k", "=", "9"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NetGraph", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ConvolutionLayer", "[", 
+      RowBox[{"1", ",", " ", "1"}], "]"}], ",", "\[IndentingNewLine]", "Tanh",
+      ",", "\[IndentingNewLine]", "40", ",", "\[IndentingNewLine]", 
+     "LogisticSigmoid", ",", "\[IndentingNewLine]", "25", ",", 
+     "\[IndentingNewLine]", "LogisticSigmoid", ",", "\[IndentingNewLine]", 
+     "1"}], "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"1", "\[Rule]", "2"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"2", "\[Rule]", "3"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"3", "\[Rule]", "4"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"4", "\[Rule]", "5"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"5", "\[Rule]", "6"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"6", "\[Rule]", "7"}]}], "\[IndentingNewLine]", "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"\"\<Input\>\"", "\[Rule]", 
+    RowBox[{"NetEncoder", "[", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Image\>\"", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "k"}], "}"}]}], "}"}], " ", "]"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"\"\<Output\>\"", "\[Rule]", 
+    RowBox[{"NetDecoder", "[", "\"\<Scalar\>\"", "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.726843280017762*^9, 3.7268433597602882`*^9}, {
+  3.7268434191090455`*^9, 3.7268434719135723`*^9}, {3.7268439370705624`*^9, 
+  3.726844015739728*^9}},ExpressionUUID->"e3f6d6c4-02ae-4b11-9c7b-\
+fe3514303ec1"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[
+   TagBox[
+    RowBox[{"NetGraph", 
+     RowBox[{"[", 
+      PanelBox[
+       DynamicModuleBox[{NeuralNetworks`Private`NetGraph`selection = None}, 
+        DynamicBox[GridBox[
+          Map[List, {
+            ToBoxes[
+             
+             NeuralNetworks`Private`NetGraph`netLayerPlot[{{1, 2}, {2, 3}, {3,
+               4}, {4, 5}, {5, 6}, {6, 7}, {8, 1}, {7, 9}}, 
+              Dynamic[NeuralNetworks`Private`NetGraph`selection], False, {
+              "1", "2", "3", "4", "5", "6", "7", "Input", "Output"}, {
+               Hue[0.61, 0.75, 1], 
+               RGBColor[0.29, 0.29, 0.83], 
+               GrayLevel[0.4], Null}, {1, 2, 3, 2, 3, 2, 3, 4, 4}, {
+              ConvolutionLayer, ElementwiseLayer, LinearLayer, Null}, {
+               NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{3, 9, 9}, NeuralNetworks`RealT], 
+               NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]}, {
+              None, Tanh, None, LogisticSigmoid, None, LogisticSigmoid, None, 
+               None, None}]], 
+            If[
+             IntegerQ[NeuralNetworks`Private`NetGraph`selection], 
+             ItemBox[
+              NeuralNetworks`Private`NetGraph`vpathInfo[
+               Part[{
+                 NeuralNetworks`NetPath["Nodes", "1"], 
+                 NeuralNetworks`NetPath["Nodes", "2"], 
+                 NeuralNetworks`NetPath["Nodes", "3"], 
+                 NeuralNetworks`NetPath["Nodes", "4"], 
+                 NeuralNetworks`NetPath["Nodes", "5"], 
+                 NeuralNetworks`NetPath["Nodes", "6"], 
+                 NeuralNetworks`NetPath["Nodes", "7"], 
+                 NeuralNetworks`NetPath["Inputs", "Input"], 
+                 NeuralNetworks`NetPath["Outputs", "Output"]}, 
+                NeuralNetworks`Private`NetGraph`selection], 
+               Association["Input" -> NetEncoder["Image", 
+                  Association[
+                  "ImageSize" -> {9, 9}, "ColorSpace" -> "RGB", 
+                   "ColorChannels" -> 3, "MeanImage" -> None, "VarianceImage" -> 
+                   None], 
+                  NeuralNetworks`TensorT[{3, 9, 9}, NeuralNetworks`RealT]]], 
+               Association["Output" -> NetDecoder["Scalar", 
+                  Association[], 
+                  NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]], 
+               Association[
+               "1" -> Association[
+                 "Type" -> "Convolution", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{1, 3, 1, 1}, 
+                    NeuralNetworks`RealT], "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputChannels" -> 1, "KernelSize" -> {1, 1}, 
+                    "Stride" -> {1, 1}, "PaddingSize" -> {0, 0}, 
+                    "Dilation" -> {1, 1}, "Dimensionality" -> 2, 
+                    "InputChannels" -> 3, "$GroupNumber" -> 1, 
+                    "$InputSize" -> {9, 9}, "$OutputSize" -> {9, 9}], 
+                  "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{3, 9, 9}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]]],
+                 "2" -> Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> NeuralNetworks`ValidatedParameter[Tanh], 
+                    "$Dimensions" -> {1, 9, 9}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]]],
+                 "3" -> Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{40, 81}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {40}, "$OutputSize" -> 40, 
+                    "$InputSize" -> 81, "$InputDimensions" -> {1, 9, 9}], 
+                  "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{1, 9, 9}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT]]], "4" -> 
+                Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> 
+                    NeuralNetworks`ValidatedParameter[LogisticSigmoid], 
+                    "$Dimensions" -> {40}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT]]], "5" -> 
+                Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{25, 40}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {25}, "$OutputSize" -> 25, 
+                    "$InputSize" -> 40, "$InputDimensions" -> {40}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{40}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT]]], "6" -> 
+                Association[
+                 "Type" -> "Elementwise", "Arrays" -> Association[], 
+                  "Parameters" -> 
+                  Association[
+                   "Function" -> 
+                    NeuralNetworks`ValidatedParameter[LogisticSigmoid], 
+                    "$Dimensions" -> {25}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT]]], "7" -> 
+                Association[
+                 "Type" -> "Linear", "Arrays" -> 
+                  Association[
+                   "Weights" -> 
+                    NeuralNetworks`TensorT[{1, 25}, NeuralNetworks`RealT], 
+                    "Biases" -> NeuralNetworks`Nullable[
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]], 
+                  "Parameters" -> 
+                  Association[
+                   "OutputDimensions" -> {1}, "$OutputSize" -> 1, 
+                    "$InputSize" -> 25, "$InputDimensions" -> {25}], "Inputs" -> 
+                  Association[
+                   "Input" -> 
+                    NeuralNetworks`TensorT[{25}, NeuralNetworks`RealT]], 
+                  "Outputs" -> 
+                  Association[
+                   "Output" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]]]]], 
+              Alignment -> Center], Nothing]}], 
+          GridBoxAlignment -> {"Columns" -> {{Left}}}],
+         ImageSizeCache->{554., {42.5, 48.5}},
+         TrackedSymbols:>{NeuralNetworks`Private`NetGraph`selection}],
+        Initialization:>{NetGraph}],
+       BaselinePosition->(Top -> Scaled[3])], "]"}]}],
+    False],
+   Deploy],
+  LineBreakWithin->False]], "Output",
+ CellChangeTimes->{{3.7268432739433255`*^9, 3.7268432806761065`*^9}, {
+  3.7268434230515356`*^9, 3.7268434726495523`*^9}, {3.7268439265080867`*^9, 
+  3.726844001193948*^9}},ExpressionUUID->"6f278b87-f957-4cf9-8865-\
+beb008c541af"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.726843518950078*^9, 3.726843542487481*^9}, {
+  3.7268435869343624`*^9, 
+  3.726843599683383*^9}},ExpressionUUID->"442369ba-4ab5-4018-be45-\
+ebeae3e1cc4c"]
+},
+WindowSize->{776, 843},
+WindowMargins->{{Automatic, 3}, {Automatic, 51}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 3316, 60, 884, "Input",ExpressionUUID->"71b10b7d-c5bb-4f13-834a-06a264d8f075"],
+Cell[3899, 84, 1691, 40, 109, "Output",ExpressionUUID->"72be1e40-3122-411b-8b71-99a178cf65ce"]
+}, Open  ]],
+Cell[5605, 127, 1043, 27, 105, "Input",ExpressionUUID->"583687cc-0a7a-4fdc-83be-0a1de230f613"],
+Cell[6651, 156, 958, 22, 48, "Input",ExpressionUUID->"e6fe25ae-e04f-4ba4-ac00-be43387f10df"],
+Cell[CellGroupData[{
+Cell[7634, 182, 1113, 26, 67, "Input",ExpressionUUID->"e4d74ec5-bbed-4131-9309-b1b09a9e7667"],
+Cell[8750, 210, 310, 8, 21, "Message",ExpressionUUID->"73c08e9f-8c98-4718-a4c0-a5eda3b7e15c"]
+}, Open  ]],
+Cell[9075, 221, 207, 4, 28, "Input",ExpressionUUID->"34439617-c278-4abf-a8dd-aeb01e0d7dda"],
+Cell[CellGroupData[{
+Cell[9307, 229, 262, 6, 28, "Input",ExpressionUUID->"9beb558f-5f78-4e30-888b-377fa7c26c65"],
+Cell[9572, 237, 2055, 39, 55, "Output",ExpressionUUID->"ff47d7c2-4026-4b1c-9fb0-3cc121593fb9"]
+}, Open  ]],
+Cell[11642, 279, 203, 4, 28, "Input",ExpressionUUID->"731a6795-2452-4666-9311-bace2a13a0c8"],
+Cell[CellGroupData[{
+Cell[11870, 287, 471, 7, 28, "Input",ExpressionUUID->"1e06ee81-726f-4ad4-94e4-678ccf96992c"],
+Cell[12344, 296, 403, 9, 21, "Message",ExpressionUUID->"4ec37558-098a-452e-81ca-3def5795aa45"]
+}, Open  ]],
+Cell[12762, 308, 932, 28, 67, "Input",ExpressionUUID->"0d3c4f38-ec5b-4fe9-937f-1cae4051d386"],
+Cell[13697, 338, 154, 3, 28, "Input",ExpressionUUID->"cfa0df4c-b5cd-44c0-a439-1f14ebbd8b94"],
+Cell[13854, 343, 3252, 83, 238, "Input",ExpressionUUID->"4af6fe4e-a3f0-4492-bc1d-446b32dcf938"],
+Cell[CellGroupData[{
+Cell[17131, 430, 355, 6, 28, "Input",ExpressionUUID->"8e25385a-4260-40ff-a4b0-edcaf3caa0e4"],
+Cell[17489, 438, 635, 14, 41, "Output",ExpressionUUID->"b36934a5-9967-4293-9717-94a4d3e41e3e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18161, 457, 3447, 64, 447, "Input",ExpressionUUID->"65b55aba-0a98-463d-86bd-84b730dadbde"],
+Cell[21611, 523, 8049, 166, 118, "Output",ExpressionUUID->"f0133baa-a7c5-40c7-ae73-4f6c25caa511"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29697, 694, 1087, 24, 179, "Input",ExpressionUUID->"d12aa450-e4bf-461d-8047-dab3659fd600"],
+Cell[30787, 720, 245, 4, 32, "Output",ExpressionUUID->"c8695d8b-7fe6-4d3d-9d90-e311aa452e4a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31069, 729, 1674, 35, 409, "Input",ExpressionUUID->"e3f6d6c4-02ae-4b11-9c7b-fe3514303ec1"],
+Cell[32746, 766, 9045, 185, 134, "Output",ExpressionUUID->"6f278b87-f957-4cf9-8865-beb008c541af"]
+}, Open  ]],
+Cell[41806, 954, 203, 4, 28, "Input",ExpressionUUID->"442369ba-4ab5-4018-be45-ebeae3e1cc4c"]
+}
+]
+*)
+

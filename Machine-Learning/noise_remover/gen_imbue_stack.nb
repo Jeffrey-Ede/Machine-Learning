@@ -1,0 +1,344 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12671,        336]
+NotebookOptionsPosition[     11703,        311]
+NotebookOutlinePosition[     12051,        326]
+CellTagsIndexPosition[     12008,        323]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"net1", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sin", ",", " ", "30", ",", " ", "Tanh", ",", " ", "3", 
+         ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net2", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sin", ",", " ", "2", ",", " ", "Sin", ",", " ", "3", ",", 
+         "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net3", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Tanh", ",", " ", "3", ",", "Tanh", ",", "colors", ",", 
+         "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net4", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Tanh", ",", " ", "45", ",", " ", "Sin", ",", " ", "3", 
+         ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net5", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Cos", ",", " ", "5", ",", " ", "LogisticSigmoid", ",", 
+         " ", "3", ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], 
+        "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.726929565075012*^9, 
+  3.7269295755014114`*^9}},ExpressionUUID->"3962896d-98a4-4eda-8466-\
+26526a15c470"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"nets", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{
+     "net1", ",", " ", "net2", ",", " ", "net3", ",", " ", "net4", ",", " ", 
+      "net5"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"NNImg", "[", "net_", "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "img", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"init", " ", "=", " ", 
+        RowBox[{"NetInitialize", "[", 
+         RowBox[{"net", ",", 
+          RowBox[{"Method", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Random\>\"", ",", 
+             RowBox[{"\"\<Weights\>\"", "\[Rule]", "3"}], ",", 
+             RowBox[{"\"\<Biases\>\"", "\[Rule]", "2"}]}], "}"}]}]}], "]"}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"row", "=", 
+        RowBox[{"Range", "[", 
+         RowBox[{
+          RowBox[{"-", "4"}], ",", "4", ",", "0.04"}], "]"}]}], ";", "\n", 
+       "\t", 
+       RowBox[{"coords", "=", 
+        RowBox[{"Tuples", "[", 
+         RowBox[{"row", ",", "2"}], "]"}]}], ";", "\n", "\t", 
+       RowBox[{"img", " ", "=", 
+        RowBox[{"Image", "[", 
+         RowBox[{"Partition", "[", 
+          RowBox[{
+           RowBox[{"init", "[", "coords", "]"}], ",", 
+           RowBox[{"Length", "[", "row", "]"}]}], "]"}], "]"}]}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dirTruth", " ", "=", " ", "\"\<D:/data/imbueStacks/Truth\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dirNoisy", " ", "=", " ", "\"\<D:/data/imbueStacks/Noisy\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"numEach", " ", "=", " ", "80"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"contrib", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{
+     "numEach", ",", " ", "numEach", ",", " ", "numEach", ",", " ", "numEach",
+       ",", " ", "numEach"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cols", " ", "=", " ", "256"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"rows", " ", "=", " ", "256"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"count", " ", "=", " ", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"j", "=", "1"}], ",", " ", 
+   RowBox[{"j", "\[LessEqual]", "numNets"}], ",", " ", 
+   RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"jStr", " ", "=", " ", 
+     RowBox[{"ToString", "[", "j", "]"}]}], ";", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Randomly", " ", "adjust", " ", "image", " ", "contrasts", " ", "and", 
+      " ", "add", " ", "salt", " ", "and", " ", "pepper", " ", "noise"}], 
+     "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"i", "=", "1"}], ",", " ", 
+      RowBox[{"i", "\[LessEqual]", 
+       RowBox[{"contrib", "[", 
+        RowBox[{"[", "j", "]"}], "]"}]}], ",", " ", 
+      RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+        "Use", " ", "nn", " ", "to", " ", "create", " ", "an", " ", "image"}],
+         ",", " ", 
+        RowBox[{
+        "adjust", " ", "its", " ", "contrast", " ", "and", " ", "scale", " ", 
+         "the", " ", "image", " ", "values", " ", "to", " ", "those", " ", 
+         "typical", " ", "of", " ", "electron", " ", "counts"}]}], "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"scale", " ", "=", " ", 
+        RowBox[{"Abs", "[", 
+         RowBox[{"RandomVariate", "[", 
+          RowBox[{"NormalDistribution", "[", 
+           RowBox[{"15000.0", ",", " ", "25000.0"}], "]"}], "]"}], "]"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"img", " ", "=", " ", 
+        RowBox[{"Abs", "[", 
+         RowBox[{"ImageApply", "[", 
+          RowBox[{
+           RowBox[{"x", "\[Function]", 
+            RowBox[{"scale", " ", "x"}]}], ",", 
+           RowBox[{"HistogramTransform", "[", 
+            RowBox[{
+             RowBox[{"NNImg", "[", 
+              RowBox[{"nets", "[", 
+               RowBox[{"[", "j", "]"}], "]"}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"NormalDistribution", "[", 
+              RowBox[{
+               RowBox[{"RandomReal", "[", 
+                RowBox[{"{", 
+                 RowBox[{"0.3", ",", " ", "0.7"}], "}"}], "]"}], ",", 
+               RowBox[{"RandomReal", "[", "0.7", "]"}]}], "]"}]}], "]"}]}], 
+          "]"}], "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"norm", "=", 
+        RowBox[{"img", "/", 
+         RowBox[{"Max", "[", "img", "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Export", "[", 
+        RowBox[{
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{"dirTruth", ",", " ", 
+            RowBox[{"StringJoin", "[", 
+             RowBox[{
+              RowBox[{"ToString", "[", "i", "]"}], ",", 
+              RowBox[{"ToString", "[", "j", "]"}], ",", " ", "\"\<.png\>\""}],
+              "]"}]}], "}"}], "]"}], ",", " ", "norm", ",", " ", 
+         "\"\<PNG\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{"Add", " ", "Poisson", " ", "noise"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"img", " ", "=", " ", 
+        RowBox[{"ImageApply", "[", 
+         RowBox[{
+          RowBox[{"x", " ", "\[Function]", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"x", "\[NotEqual]", "0"}], ",", 
+             RowBox[{"RandomVariate", "[", 
+              RowBox[{"PoissonDistribution", "[", "x", "]"}], "]"}], ",", " ",
+              "x"}], "]"}]}], ",", " ", "img"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"norm", "=", 
+        RowBox[{"img", "/", 
+         RowBox[{"Max", "[", "img", "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Export", "[", 
+        RowBox[{
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{"dirNoisy", ",", " ", 
+            RowBox[{"StringJoin", "[", 
+             RowBox[{
+              RowBox[{"ToString", "[", "i", "]"}], ",", 
+              RowBox[{"ToString", "[", "j", "]"}], ",", " ", "\"\<.png\>\""}],
+              "]"}]}], "}"}], "]"}], ",", " ", "norm", ",", " ", 
+         "\"\<PNG\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"count", "++"}], ";"}]}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", "count", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.726925200564579*^9, 3.7269252438619175`*^9}, {
+   3.726925287968009*^9, 3.7269253820253754`*^9}, {3.7269254224126773`*^9, 
+   3.7269254310357294`*^9}, {3.726925505706915*^9, 3.726925526057754*^9}, {
+   3.726925578370245*^9, 3.726925659411248*^9}, {3.7269257016461267`*^9, 
+   3.7269258686379185`*^9}, {3.7269260706978354`*^9, 
+   3.7269260915981474`*^9}, {3.7269261840768213`*^9, 3.726926216591861*^9}, {
+   3.7269264302054305`*^9, 3.7269265026245565`*^9}, {3.7269289553205748`*^9, 
+   3.726928992341751*^9}, {3.726929064294602*^9, 3.7269290675523663`*^9}, {
+   3.726929123286656*^9, 3.726929131050976*^9}, {3.7269292106464195`*^9, 
+   3.7269293335018115`*^9}, 3.726929586404229*^9, {3.7269296738091984`*^9, 
+   3.7269297030552883`*^9}, {3.7269299211551695`*^9, 
+   3.7269299311327114`*^9}},ExpressionUUID->"9d85183d-41f0-4523-9c70-\
+de4c194a1c29"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["3"], "Print",
+ CellChangeTimes->{
+  3.7269299393072047`*^9},ExpressionUUID->"bf31bd34-c8c2-4a18-a75c-\
+ccdd0202062e"],
+
+Cell[BoxData["400"], "Print",
+ CellChangeTimes->{
+  3.7269306821497355`*^9},ExpressionUUID->"8f88d65f-2418-48f1-9193-\
+09270b8c4c58"],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.7269287868179836`*^9, 3.7269290005277996`*^9, 3.7269291389062977`*^9, 
+   3.7269292846610947`*^9, 3.7269295960559874`*^9, 3.726929721535576*^9, {
+   3.726929874403262*^9, 
+   3.7269298759849567`*^9}},ExpressionUUID->"f86b992e-3101-4845-a6a5-\
+d7c184639df2"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FileNameJoin", "[", 
+  RowBox[{"{", 
+   RowBox[{"dirNoisy", ",", " ", 
+    RowBox[{"StringJoin", "[", 
+     RowBox[{
+      RowBox[{"ToString", "[", "i", "]"}], ",", 
+      RowBox[{"ToString", "[", "j", "]"}], ",", " ", "\"\<.png\>\""}], 
+     "]"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.7269299039323287`*^9},ExpressionUUID->"107de5b5-2c18-4e54-85a6-\
+7bcfeecad05d"],
+
+Cell[BoxData["\<\"D:\\\\data\\\\imbueStacks\\\\Noisy\\\\51.png\"\>"], "Output",
+ CellChangeTimes->{{3.7269298818512897`*^9, 
+  3.7269299050698757`*^9}},ExpressionUUID->"47037677-121d-4257-bf65-\
+a8cb01dbf1c7"]
+}, Open  ]]
+},
+WindowSize->{782, 833},
+WindowMargins->{{217, Automatic}, {11, Automatic}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2010, 56, 124, "Input",ExpressionUUID->"3962896d-98a4-4eda-8466-26526a15c470"],
+Cell[CellGroupData[{
+Cell[2593, 80, 7777, 184, 979, "Input",ExpressionUUID->"9d85183d-41f0-4523-9c70-de4c194a1c29"],
+Cell[CellGroupData[{
+Cell[10395, 268, 131, 3, 22, "Print",ExpressionUUID->"bf31bd34-c8c2-4a18-a75c-ccdd0202062e"],
+Cell[10529, 273, 133, 3, 22, "Print",ExpressionUUID->"8f88d65f-2418-48f1-9193-09270b8c4c58"],
+Cell[10665, 278, 358, 8, 22, "Print",ExpressionUUID->"f86b992e-3101-4845-a6a5-d7c184639df2"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11072, 292, 403, 11, 28, "Input",ExpressionUUID->"107de5b5-2c18-4e54-85a6-7bcfeecad05d"],
+Cell[11478, 305, 209, 3, 32, "Output",ExpressionUUID->"47037677-121d-4257-bf65-a8cb01dbf1c7"]
+}, Open  ]]
+}
+]
+*)
+

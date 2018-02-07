@@ -1,0 +1,169 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5813,        161]
+NotebookOptionsPosition[      5511,        148]
+NotebookOutlinePosition[      5859,        163]
+CellTagsIndexPosition[      5816,        160]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Module", " ", "to", " ", "create", " ", "artwork", " ", "from", " ", 
+    "neural", " ", "networks"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"NNImg", "[", "net_", "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "img", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"init", " ", "=", " ", 
+        RowBox[{"NetInitialize", "[", 
+         RowBox[{"net", ",", 
+          RowBox[{"Method", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Random\>\"", ",", 
+             RowBox[{"\"\<Weights\>\"", "\[Rule]", "3"}], ",", 
+             RowBox[{"\"\<Biases\>\"", "\[Rule]", "2"}]}], "}"}]}]}], "]"}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"row", "=", 
+        RowBox[{"Range", "[", 
+         RowBox[{
+          RowBox[{"-", "4"}], ",", "4", ",", "0.04"}], "]"}]}], ";", "\n", 
+       "\t", 
+       RowBox[{"coords", "=", 
+        RowBox[{"Tuples", "[", 
+         RowBox[{"row", ",", "2"}], "]"}]}], ";", "\n", "\t", 
+       RowBox[{"img", " ", "=", 
+        RowBox[{"Image", "[", 
+         RowBox[{"Partition", "[", 
+          RowBox[{
+           RowBox[{"init", "[", "coords", "]"}], ",", 
+           RowBox[{"Length", "[", "row", "]"}]}], "]"}], "]"}]}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Create", " ", "neural", " ", "networks", " ", "that", " ", "produce", 
+     " ", "a", " ", "variety", " ", "of", " ", "different", " ", "types", " ",
+      "of", " ", "art"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"colors", " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net1", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sin", ",", " ", "30", ",", " ", "Tanh", ",", " ", "3", 
+         ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "3"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net1", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net2", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sin", ",", " ", "2", ",", " ", "Sin", ",", " ", "3", ",", 
+         "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "3"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net2", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net3", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Tanh", ",", " ", "3", ",", "Tanh", ",", "colors", ",", 
+         "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "3"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net3", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net4", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Tanh", ",", " ", "45", ",", " ", "Sin", ",", " ", "3", 
+         ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "3"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net4", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net5", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Cos", ",", " ", "5", ",", " ", "LogisticSigmoid", ",", 
+         " ", "3", ",", "Tanh", ",", "colors", ",", "LogisticSigmoid"}], 
+        "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "3"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net5", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net6", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sqrt", ",", " ", "5", ",", " ", "Sqrt", ",", " ", "3", 
+         ",", "Sqrt", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net6", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"net6", "=", 
+     RowBox[{"NetChain", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "30", ",", "Sqrt", ",", " ", "5", ",", " ", "Sqrt", ",", " ", "3", 
+         ",", "Sqrt", ",", "colors", ",", "LogisticSigmoid"}], "}"}], ",", 
+       RowBox[{"\"\<Input\>\"", "\[Rule]", "2"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"NNImg", "[", "net6", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7268590138788924`*^9, 3.726859094808256*^9}, {
+  3.726859140978883*^9, 
+  3.7268591412581577`*^9}},ExpressionUUID->"6d75c495-9645-4b82-bb3d-\
+c36ba6608a8d"]
+},
+WindowSize->{782, 833},
+WindowMargins->{{Automatic, 211}, {Automatic, 83}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 4949, 126, 485, "Input",ExpressionUUID->"6d75c495-9645-4b82-bb3d-c36ba6608a8d"]
+}
+]
+*)
+

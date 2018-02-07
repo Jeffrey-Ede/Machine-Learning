@@ -1,0 +1,28 @@
+{
+	"nodes":[
+		{"op":"null","name":"Input","attr":{},"inputs":[]},
+		{"op":"null","name":"1.Weights","attr":{},"inputs":[]},
+		{"op":"null","name":"1.Biases","attr":{},"inputs":[]},
+		{"op":"FullyConnected","name":"1","attr":{"num_hidden":"30","no_bias":"False"},"inputs":[[0,0,0],[1,0,0],[2,0,0]]},
+		{"op":"sin","name":"2$0","attr":{},"inputs":[[3,0,0]]},
+		{"op":"null","name":"3.Weights","attr":{},"inputs":[]},
+		{"op":"null","name":"3.Biases","attr":{},"inputs":[]},
+		{"op":"FullyConnected","name":"3","attr":{"num_hidden":"2","no_bias":"False"},"inputs":[[4,0,0],[5,0,0],[6,0,0]]},
+		{"op":"sin","name":"4$0","attr":{},"inputs":[[7,0,0]]},
+		{"op":"null","name":"5.Weights","attr":{},"inputs":[]},
+		{"op":"null","name":"5.Biases","attr":{},"inputs":[]},
+		{"op":"FullyConnected","name":"5","attr":{"num_hidden":"3","no_bias":"False"},"inputs":[[8,0,0],[9,0,0],[10,0,0]]},
+		{"op":"tanh","name":"6$0","attr":{},"inputs":[[11,0,0]]},
+		{"op":"null","name":"7.Weights","attr":{},"inputs":[]},
+		{"op":"null","name":"7.Biases","attr":{},"inputs":[]},
+		{"op":"FullyConnected","name":"7","attr":{"num_hidden":"1","no_bias":"False"},"inputs":[[12,0,0],[13,0,0],[14,0,0]]},
+		{"op":"sigmoid","name":"8$0","attr":{},"inputs":[[15,0,0]]}
+	],
+	"arg_nodes":[0,1,2,5,6,9,10,13,14],
+	"heads":[
+		[16,0,0]
+	],
+	"attrs":{
+		"mxnet_version":["int",905]
+	}
+}
